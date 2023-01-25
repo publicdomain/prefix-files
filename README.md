@@ -1,2 +1,3 @@
-# prefix-files
-Prefix folder name with number of files within folder.
+# PrefixFiles
+
+Prefix folder name with the number of files within it.
