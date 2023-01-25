@@ -9,6 +9,7 @@ namespace PrefixFiles
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.IO;
     using System.Windows.Forms;
 
     /// <summary>
@@ -52,7 +53,20 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnFoldersListBoxDragDrop(object sender, DragEventArgs e)
         {
-            // TODO Add code
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                foreach (var possibleDirectory in (string[])e.Data.GetData(DataFormats.FileDrop))
+                {
+                    // TODO Check for directory [May eb done via FileInfo]
+                    if (Directory.Exists(possibleDirectory))
+                    {
+                        this.foldersListBox.Items.Add(possibleDirectory);
+                    }
+                }
+
+                // Update current folder count
+                this.foldersToolStripStatusLabel.Text = this.foldersListBox.Items.Count.ToString();
+            }
         }
 
         /// <summary>
