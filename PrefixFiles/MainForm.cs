@@ -62,7 +62,7 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnFoldersListBoxDragEnter(object sender, DragEventArgs e)
         {
-            // TODO Add code
+            e.Effect = e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
         }
 
         /// <summary>
@@ -126,21 +126,21 @@ namespace PrefixFiles
         }
 
         /// <summary>
-        /// Handles the button1 click.
+        /// Handles the browse for folder button click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnButton1Click(object sender, EventArgs e)
+        private void OnBrowseForFolderButtonClick(object sender, EventArgs e)
         {
             // TODO Add code
         }
 
         /// <summary>
-        /// Handles the button2 click.
+        /// Handles the prefix files button click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
         /// <param name="e">Event arguments.</param>
-        private void OnButton2Click(object sender, EventArgs e)
+        private void OnPrefixFilesButtonClick(object sender, EventArgs e)
         {
             // TODO Add code
         }
