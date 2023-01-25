@@ -168,6 +168,31 @@ namespace PrefixFiles
         }
 
         /// <summary>
+        /// Handles the remove tool strip menu item click.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnRemoveToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            // TODO Add code
+        }
+
+        /// <summary>
+        /// Handles the folders list box key down.
+        /// </summary>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void OnFoldersListBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            // Check for delete
+            if (e.KeyData == Keys.Delete)
+            {
+                // Trigger removal
+                this.removeToolStripMenuItem.PerformClick();
+            }
+        }
+
+        /// <summary>
         /// Handles the exit tool strip menu item click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
