@@ -174,7 +174,18 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnRemoveToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Prevent drawing
+            this.foldersListBox.BeginUpdate();
+
+            // TODO Remove all selected items in list box [Can be made differently]
+            while (this.foldersListBox.SelectedItems.Count > 0)
+            {
+                // Remove item
+                this.foldersListBox.Items.Remove(this.foldersListBox.SelectedItems[0]);
+            }
+
+            // Resume drawing
+            this.foldersListBox.EndUpdate();
         }
 
         /// <summary>
