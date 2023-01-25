@@ -40,8 +40,6 @@ namespace PrefixFiles
         	this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.countsubfoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-        	this.recursiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.freeReleasesPublicDomainisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.originalThreadDonationCodercomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,10 +54,12 @@ namespace PrefixFiles
         	this.browseForFolderButton = new System.Windows.Forms.Button();
         	this.dropFoldersListLabel = new System.Windows.Forms.Label();
         	this.foldersListBox = new System.Windows.Forms.ListBox();
-        	this.prefixFilesButton = new System.Windows.Forms.Button();
-        	this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
         	this.foldersListBoxContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
         	this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.prefixFilesButton = new System.Windows.Forms.Button();
+        	this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
+        	this.prefixSubfoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        	this.addFilesInSubfoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         	this.mainMenuStrip.SuspendLayout();
         	this.mainStatusStrip.SuspendLayout();
         	this.mainTableLayoutPanel.SuspendLayout();
@@ -113,8 +113,8 @@ namespace PrefixFiles
         	// 
         	this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
         	        	        	this.alwaysOnTopToolStripMenuItem,
-        	        	        	this.countsubfoldersToolStripMenuItem,
-        	        	        	this.recursiveToolStripMenuItem});
+        	        	        	this.addFilesInSubfoldersToolStripMenuItem,
+        	        	        	this.prefixSubfoldersToolStripMenuItem});
         	this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
         	this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
         	this.optionsToolStripMenuItem.Text = "&Options";
@@ -123,20 +123,8 @@ namespace PrefixFiles
         	// alwaysOnTopToolStripMenuItem
         	// 
         	this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-        	this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-        	this.alwaysOnTopToolStripMenuItem.Text = "&Always on top";
-        	// 
-        	// countsubfoldersToolStripMenuItem
-        	// 
-        	this.countsubfoldersToolStripMenuItem.Name = "countsubfoldersToolStripMenuItem";
-        	this.countsubfoldersToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-        	this.countsubfoldersToolStripMenuItem.Text = "Count &subfolders";
-        	// 
-        	// recursiveToolStripMenuItem
-        	// 
-        	this.recursiveToolStripMenuItem.Name = "recursiveToolStripMenuItem";
-        	this.recursiveToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
-        	this.recursiveToolStripMenuItem.Text = "&Recursive";
+        	this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+        	this.alwaysOnTopToolStripMenuItem.Text = "Always on &top";
         	// 
         	// helpToolStripMenuItem
         	// 
@@ -267,6 +255,7 @@ namespace PrefixFiles
         	// foldersListBox
         	// 
         	this.foldersListBox.AllowDrop = true;
+        	this.foldersListBox.ContextMenuStrip = this.foldersListBoxContextMenuStrip;
         	this.foldersListBox.Dock = System.Windows.Forms.DockStyle.Fill;
         	this.foldersListBox.FormattingEnabled = true;
         	this.foldersListBox.Location = new System.Drawing.Point(3, 88);
@@ -277,6 +266,20 @@ namespace PrefixFiles
         	this.foldersListBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnFoldersListBoxDragDrop);
         	this.foldersListBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.OnFoldersListBoxDragEnter);
         	this.foldersListBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnFoldersListBoxKeyDown);
+        	// 
+        	// foldersListBoxContextMenuStrip
+        	// 
+        	this.foldersListBoxContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+        	        	        	this.removeToolStripMenuItem});
+        	this.foldersListBoxContextMenuStrip.Name = "foldersListBoxContextMenuStrip";
+        	this.foldersListBoxContextMenuStrip.Size = new System.Drawing.Size(118, 26);
+        	// 
+        	// removeToolStripMenuItem
+        	// 
+        	this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+        	this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+        	this.removeToolStripMenuItem.Text = "&Remove";
+        	this.removeToolStripMenuItem.Click += new System.EventHandler(this.OnRemoveToolStripMenuItemClick);
         	// 
         	// prefixFilesButton
         	// 
@@ -295,19 +298,17 @@ namespace PrefixFiles
         	this.folderBrowserDialog.Description = "Select folder to prefix";
         	this.folderBrowserDialog.ShowNewFolderButton = false;
         	// 
-        	// foldersListBoxContextMenuStrip
+        	// prefixSubfoldersToolStripMenuItem
         	// 
-        	this.foldersListBoxContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-        	        	        	this.removeToolStripMenuItem});
-        	this.foldersListBoxContextMenuStrip.Name = "foldersListBoxContextMenuStrip";
-        	this.foldersListBoxContextMenuStrip.Size = new System.Drawing.Size(118, 26);
+        	this.prefixSubfoldersToolStripMenuItem.Name = "prefixSubfoldersToolStripMenuItem";
+        	this.prefixSubfoldersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+        	this.prefixSubfoldersToolStripMenuItem.Text = "&Prefix subfolders";
         	// 
-        	// removeToolStripMenuItem
+        	// addFilesInSubfoldersToolStripMenuItem
         	// 
-        	this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-        	this.removeToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-        	this.removeToolStripMenuItem.Text = "&Remove";
-        	this.removeToolStripMenuItem.Click += new System.EventHandler(this.OnRemoveToolStripMenuItemClick);
+        	this.addFilesInSubfoldersToolStripMenuItem.Name = "addFilesInSubfoldersToolStripMenuItem";
+        	this.addFilesInSubfoldersToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+        	this.addFilesInSubfoldersToolStripMenuItem.Text = "&Add files in subfolders";
         	// 
         	// MainForm
         	// 
@@ -332,6 +333,8 @@ namespace PrefixFiles
         	this.ResumeLayout(false);
         	this.PerformLayout();
         }
+        private System.Windows.Forms.ToolStripMenuItem prefixSubfoldersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFilesInSubfoldersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip foldersListBoxContextMenuStrip;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog;
@@ -341,8 +344,6 @@ namespace PrefixFiles
         private System.Windows.Forms.Button browseForFolderButton;
         private System.Windows.Forms.Label addOneLabel;
         private System.Windows.Forms.TableLayoutPanel mainTableLayoutPanel;
-        private System.Windows.Forms.ToolStripMenuItem recursiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem countsubfoldersToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel foldersToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel foldersTextToolStripStatusLabel;
         private System.Windows.Forms.StatusStrip mainStatusStrip;
