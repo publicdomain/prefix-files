@@ -12,13 +12,32 @@ namespace PrefixFiles
     using System.Drawing;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
     using System.Windows.Forms;
+    using System.Xml.Serialization;
+    using PublicDomain;
 
     /// <summary>
     /// Main form.
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
+        /// <summary>
+        /// The settings data.
+        /// </summary>
+        private SettingsData settingsData = null;
+
+        /// <summary>
+        /// The settings data path.
+        /// </summary>
+        private string settingsDataPath = $"{Application.ProductName}-SettingsData.txt";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:PrefixFiles.MainForm"/> class.
         /// </summary>
@@ -141,7 +160,8 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnSourceCodeGithubcomToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Open GitHub repository
+            Process.Start("https://github.com/publicdomain/prefix-files");
         }
 
         /// <summary>
