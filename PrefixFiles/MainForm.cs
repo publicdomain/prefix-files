@@ -317,6 +317,24 @@ namespace PrefixFiles
         }
 
         /// <summary>
+        /// Loads the settings file.
+        /// </summary>
+        /// <returns>The settings file.</returns>
+        /// <param name="settingsFilePath">Settings file path.</param>
+        private SettingsData LoadSettingsFile(string settingsFilePath)
+        {
+            // Use file stream
+            using (FileStream fileStream = File.OpenRead(settingsFilePath))
+            {
+                // Set xml serialzer
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(SettingsData));
+
+                // Return populated settings data
+                return xmlSerializer.Deserialize(fileStream) as SettingsData;
+            }
+        }
+
+        /// <summary>
         /// Handles the exit tool strip menu item click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
