@@ -45,6 +45,26 @@ namespace PrefixFiles
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             this.InitializeComponent();
+
+            /* Set icons */
+
+            // Set associated icon from exe file
+            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+            // Set PublicDomain.is tool strip menu item image
+            this.freeReleasesPublicDomainisToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
+            /* Settings data */
+
+            // Check for settings file
+            if (!File.Exists(this.settingsDataPath))
+            {
+                // Create new settings file
+                this.SaveSettingsFile(this.settingsDataPath, new SettingsData());
+            }
+
+            // Load settings from disk
+            this.settingsData = this.LoadSettingsFile(this.settingsDataPath);
         }
 
         /// <summary>
