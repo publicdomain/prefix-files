@@ -187,6 +187,28 @@ namespace PrefixFiles
         }
 
         /// <summary>
+        /// Renames the subdirectories.
+        /// </summary>
+        /// <param name="directoryPath">Directory path.</param>
+        private void RenameSubdirectories(string directoryPath)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+
+            foreach (DirectoryInfo subdirectoryInfo in directoryInfo.GetDirectories("*", SearchOption.TopDirectoryOnly))
+            {
+                string subdirectoryFullPath = Path.Combine(subdirectoryInfo.Parent.FullName, subdirectoryInfo.Name);
+
+                RenameSubdirectories(subdirectoryFullPath);
+
+                int fileCount = Directory.EnumerateFiles(subdirectoryFullPath, "*", this.addFilesInSubfoldersToolStripMenuItem.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Count();
+
+                string strFoldername = Path.Combine(Directory.GetParent(subdirectoryFullPath).FullName, fileCount.ToString() + " " + Path.GetFileName(subdirectoryFullPath.TrimEnd(Path.DirectorySeparatorChar)));
+
+                subdirectoryInfo.MoveTo(strFoldername);
+            }
+        }
+
+        /// <summary>
         /// Handles the remove tool strip menu item click.
         /// </summary>
         /// <param name="sender">Sender object.</param>
