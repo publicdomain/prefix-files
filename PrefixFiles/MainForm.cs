@@ -84,7 +84,25 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnMainFormFormClosing(object sender, FormClosingEventArgs e)
         {
-            // TODO Add code
+            // New checked options list
+            List<string> checkedOptionsList = new List<string>();
+
+            // Set checked options list
+            foreach (ToolStripMenuItem toolStripMenuItem in this.optionsToolStripMenuItem.DropDownItems)
+            {
+                // Check if checked
+                if (toolStripMenuItem.Checked)
+                {
+                    // Add to checked options list
+                    checkedOptionsList.Add(toolStripMenuItem.Name);
+                }
+            }
+
+            // Set into settings data
+            this.settingsData.CheckedOptionsList = checkedOptionsList;
+
+            // Save settings data to disk
+            this.SaveSettingsFile(this.settingsDataPath, this.settingsData);
         }
 
         /// <summary>

@@ -27,30 +27,6 @@ namespace PublicDomain
         /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> always on top.
         /// </summary>
         /// <value><c>true</c> if always on top; otherwise, <c>false</c>.</value>
-        public bool AlwaysOnTop { get; set; } = false;
-
-        /// <summary>
-        /// Gets or sets the last.
-        /// </summary>
-        /// <value>The last.</value>
-        public string last { get; set; } = "Min. length";
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> apply last on open.
-        /// </summary>
-        /// <value><c>true</c> if apply last on open; otherwise, <c>false</c>.</value>
-        public bool ApplyLastOnOpen { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> remove blank lines.
-        /// </summary>
-        /// <value><c>true</c> if remove blank lines; otherwise, <c>false</c>.</value>
-        public bool RemoveBlankLines { get; set; } = true;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:PublicDomain.SettingsData"/> trim lines.
-        /// </summary>
-        /// <value><c>true</c> if trim lines; otherwise, <c>false</c>.</value>
-        public bool TrimLines { get; set; } = false;
+        public List<string> CheckedOptionsList { get; set; }
     }
 }
