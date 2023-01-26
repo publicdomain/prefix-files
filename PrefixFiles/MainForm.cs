@@ -10,6 +10,7 @@ namespace PrefixFiles
     using System.Collections.Generic;
     using System.Drawing;
     using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
 
     /// <summary>
@@ -155,6 +156,9 @@ namespace PrefixFiles
                 // Add folder
                 this.foldersListBox.Items.Add(this.folderBrowserDialog.SelectedPath);
             }
+
+            // Update current folder count
+            this.foldersToolStripStatusLabel.Text = this.foldersListBox.Items.Count.ToString();
         }
 
         /// <summary>
@@ -165,6 +169,21 @@ namespace PrefixFiles
         private void OnPrefixFilesButtonClick(object sender, EventArgs e)
         {
             // TODO Add code
+        }
+
+        /// <summary>
+        /// Renames the directory.
+        /// </summary>
+        /// <param name="directoryPath">Directory path.</param>
+        private void RenameDirectory(string directoryPath)
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+
+            int fileCount = Directory.EnumerateFiles(directoryPath, "*", this.addFilesInSubfoldersToolStripMenuItem.Checked ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly).Count();
+
+            string strFoldername = Path.Combine(Directory.GetParent(directoryPath).FullName, fileCount.ToString() + " " + Path.GetFileName(directoryPath.TrimEnd(Path.DirectorySeparatorChar)));
+
+            directoryInfo.MoveTo(strFoldername);
         }
 
         /// <summary>
@@ -186,6 +205,9 @@ namespace PrefixFiles
 
             // Resume drawing
             this.foldersListBox.EndUpdate();
+
+            // Update current folder count
+            this.foldersToolStripStatusLabel.Text = this.foldersListBox.Items.Count.ToString();
         }
 
         /// <summary>
