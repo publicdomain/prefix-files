@@ -168,7 +168,42 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnPrefixFilesButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Exception flag
+            bool hasException = false;
+
+            // Iterate directories in list
+            foreach (string directory in this.foldersListBox.Items)
+            {
+                try
+                {
+                    // Check if must rename subdirectories
+                    if (this.prefixSubfoldersToolStripMenuItem.Checked)
+                    {
+                        // Rename subdirectories
+                        RenameSubdirectories(directory);
+                    }
+
+                    // Rename current directory
+                    this.RenameDirectory(directory);
+                }
+                catch (Exception ex)
+                {
+                    // Toggle exception flag
+                    hasException = true;
+
+                    // Write to error file
+                    File.AppendAllText("PrefixFiles-ErrorLog.txt", $"{Environment.NewLine}{Environment.NewLine}-----{Environment.NewLine}{ex.Message}");
+                }
+            }
+
+            // Clear list
+            this.foldersListBox.Items.Clear();
+
+            // Update current folder count
+            this.foldersToolStripStatusLabel.Text = this.foldersListBox.Items.Count.ToString();
+
+            // Advise user
+            MessageBox.Show($"Files prefixed to directory names. {(hasException ? $"{Environment.NewLine}{Environment.NewLine}Please check \"PrefixFiles-ErrorLog.txt\" file." : "")}", "Prefix files", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
