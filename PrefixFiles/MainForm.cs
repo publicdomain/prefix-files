@@ -87,7 +87,11 @@ namespace PrefixFiles
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Clear list
+            this.foldersListBox.Items.Clear();
+
+            // Update current folder count
+            this.foldersToolStripStatusLabel.Text = this.foldersListBox.Items.Count.ToString();
         }
 
         /// <summary>
